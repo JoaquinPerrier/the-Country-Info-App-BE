@@ -13,6 +13,15 @@ class CountryPresenter {
       this.view.displayError("Error al cargar los países.");
     }
   }
+
+  async loadCountryInfo(countryCode) {
+    try {
+      const countryInfo = await Country.fetchCountryInfo(countryCode);
+      return this.view.displayCountryInfo(countryInfo);
+    } catch (error) {
+      this.view.displayError("Error al cargar la información del país.");
+    }
+  }
 }
 
 module.exports = CountryPresenter;

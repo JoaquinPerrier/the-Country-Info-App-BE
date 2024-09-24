@@ -13,10 +13,23 @@ app.get("/countries", async (req, res) => {
     const countries = await presenter.loadCountries();
     res.json(countries);
   } catch (error) {
-    res.status(500).send("Fetching error!");
+    res.status(500).send("Error al cargar los países.");
+  }
+});
+
+app.get("/country-info/:countryCode", async (req, res) => {
+  const { countryCode } = req.params;
+  const view = new CountryView();
+  const presenter = new CountryPresenter(view);
+
+  try {
+    const countryInfo = await presenter.loadCountryInfo(countryCode);
+    res.json(countryInfo);
+  } catch (error) {
+    res.status(500).send("Error al cargar la información del país.");
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server runing in port: ${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
