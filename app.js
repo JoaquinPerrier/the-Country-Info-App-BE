@@ -17,7 +17,7 @@ app.get("/countries", async (req, res) => {
     const countries = await presenter.loadCountries();
     res.json(countries);
   } catch (error) {
-    res.status(500).send("Error al cargar los países.");
+    res.status(500).send("Error fetching countries!");
   }
 });
 
@@ -30,7 +30,7 @@ app.get("/country-info/:countryCode", async (req, res) => {
     const countryInfo = await presenter.loadCountryInfo(countryCode);
     res.json(countryInfo);
   } catch (error) {
-    res.status(500).send("Error al cargar la información del país.");
+    res.status(500).send("Error fetching country information!");
   }
 });
 
@@ -40,7 +40,7 @@ app.get("/flag", async (req, res) => {
   const presenter = new CountryPresenter(view);
 
   if (!iso2) {
-    return res.status(400).json({ error: "Missing params!" });
+    res.status(400).send("Missing params!");
   }
 
   try {
@@ -49,10 +49,10 @@ app.get("/flag", async (req, res) => {
     res.json({ countryFlagInfo });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al obtener la bandera" });
+    res.status(500).send("Error fetching country flag!");
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port: ${PORT}`);
 });

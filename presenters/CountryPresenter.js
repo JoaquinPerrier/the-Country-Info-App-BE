@@ -10,7 +10,7 @@ class CountryPresenter {
       const countries = await Country.fetchAvailableCountries();
       return this.view.displayCountries(countries);
     } catch (error) {
-      this.view.displayError("Error al cargar los países.");
+      this.view.displayError("Error fetching countries!");
     }
   }
 
@@ -19,7 +19,7 @@ class CountryPresenter {
       const countryInfo = await Country.fetchCountryInfo(countryCode);
       return this.view.displayCountryInfo(countryInfo);
     } catch (error) {
-      this.view.displayError("Error al cargar la información del país.");
+      this.view.displayError("Error fetching country information!");
     }
   }
 
@@ -28,9 +28,7 @@ class CountryPresenter {
       const countryFlagInfo = await Country.fetchFlagInfo(countryCode);
       return this.view.displayCountryFlagInfo(countryFlagInfo);
     } catch (error) {
-      this.view.displayError(
-        "Error al cargar la información de la bandera del país."
-      );
+      this.view.displayError("Error fetching country flag!");
     }
   }
 }
