@@ -1,9 +1,13 @@
 const express = require("express");
+const cors = require("cors");
 const CountryView = require("./views/CountryView");
 const CountryPresenter = require("./presenters/CountryPresenter");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get("/countries", async (req, res) => {
   const view = new CountryView();
@@ -27,6 +31,25 @@ app.get("/country-info/:countryCode", async (req, res) => {
     res.json(countryInfo);
   } catch (error) {
     res.status(500).send("Error al cargar la información del país.");
+  }
+});
+
+app.get("/flag", async (req, res) => {
+  const { iso2 } = req.body;
+  const view = new CountryView();
+  const presenter = new CountryPresenter(view);
+
+  if (!iso2) {
+    return res.status(400).json({ error: "Missing params!" });
+  }
+
+  try {
+    const countryFlagInfo = await presenter.loadCountryFlagInfo(iso2);
+
+    res.json({ countryFlagInfo });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener la bandera" });
   }
 });
 

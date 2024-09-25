@@ -22,6 +22,17 @@ class CountryPresenter {
       this.view.displayError("Error al cargar la información del país.");
     }
   }
+
+  async loadCountryFlagInfo(countryCode) {
+    try {
+      const countryFlagInfo = await Country.fetchFlagInfo(countryCode);
+      return this.view.displayCountryFlagInfo(countryFlagInfo);
+    } catch (error) {
+      this.view.displayError(
+        "Error al cargar la información de la bandera del país."
+      );
+    }
+  }
 }
 
 module.exports = CountryPresenter;

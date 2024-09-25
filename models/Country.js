@@ -15,6 +15,16 @@ class Country {
     );
     return response.data;
   }
+
+  static async fetchFlagInfo(iso2) {
+    const response = await axios.post(
+      "https://countriesnow.space/api/v0.1/countries/flag/images",
+      {
+        iso2: iso2,
+      }
+    );
+    return response.data;
+  }
 }
 
 module.exports = Country;

@@ -7,6 +7,10 @@ class CountryView {
     return countryInfo;
   }
 
+  displayCountryFlagInfo(countryFlagInfo) {
+    return countryFlagInfo;
+  }
+
   displayError(message) {
     console.error(message);
     throw new Error(message);
